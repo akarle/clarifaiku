@@ -9,8 +9,11 @@ from django.conf import settings
 
 
 def index(request):
-    learn.add_from_files()
     return HttpResponse('test')
+
+def add_from_files(request):
+    learn.add_from_files()
+    return HttpResponse("Added haiku from files to database")
 
 
 
