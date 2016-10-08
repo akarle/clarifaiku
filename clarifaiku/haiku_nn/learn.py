@@ -7,7 +7,6 @@ import re
 from models import *
 import os
 from django.conf import settings
-
 re_word = re.compile(r"[a-zA-Z']+")
 #Returns Array of arrays of three line arrays, each of which is tokenized into words.
 #In other words, returns haiku[haiku][line][word]
@@ -135,4 +134,10 @@ def add_from_files():
                 print lines
                 for haiku_lists in [lines[i:i + 3] for i in range(0, len(lines), 3)]:
                     addHaiku(theme, haiku_lists[0],haiku_lists[1],haiku_lists[2])
+
+
+
+
+
+
 
