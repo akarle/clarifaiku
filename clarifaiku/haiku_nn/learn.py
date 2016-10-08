@@ -11,8 +11,15 @@ re_word = re.compile(r"[a-zA-Z']+")
 #Returns Array of arrays of three line arrays, each of which is tokenized into words.
 #In other words, returns haiku[haiku][line][word]
 def get_words():
-    return [[re.findall(re_word, line.lower()) for line in [haiku.line1, haiku.line2, haiku.line3]]
+    return [([re.findall(re_word, line.lower()) for line in [haiku.line1, haiku.line2, haiku.line3]], haiku.theme.theme)
             for haiku in Haiku.objects.all()]
+
+def get_vocab():
+    vocab = set()
+    for haiku in Haiku.objects.all():
+        for line in [haiku.line1, haiku.line2, haiku.line3]:
+            vocab.update(re.findall(re_word, line.lower()))
+    return vocab
 # datastring = """
 # You never feed me.
 # Perhaps I'll sleep on your face.

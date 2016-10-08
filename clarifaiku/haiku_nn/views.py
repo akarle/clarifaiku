@@ -17,6 +17,7 @@ def add_from_files(request):
     return HttpResponse("Added haiku from files to database")
 
 def run_model(request):
-    RNN.run_model()
+    #RNN.run_model()
+    from . import generator
     return HttpResponse('ok')
 

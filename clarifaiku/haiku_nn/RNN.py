@@ -74,7 +74,7 @@ def data_type():
     return tf.float16 if FLAGS.use_fp16 else tf.float32
 
 
-class PTBModel(object):
+class HaikuModel(object):
     """The PTB model."""
 
     def __init__(self, is_training, config):
@@ -317,10 +317,10 @@ def main():
         initializer = tf.random_uniform_initializer(-config.init_scale,
                                                     config.init_scale)
         with tf.variable_scope("model", reuse=None, initializer=initializer):
-            m = PTBModel(is_training=True, config=config)
+            m = HaikuModel(is_training=True, config=config)
         with tf.variable_scope("model", reuse=True, initializer=initializer):
-            mvalid = PTBModel(is_training=False, config=config)
-            mtest = PTBModel(is_training=False, config=eval_config)
+            mvalid = HaikuModel(is_training=False, config=config)
+            mtest = HaikuModel(is_training=False, config=eval_config)
 
         tf.initialize_all_variables().run()
 
