@@ -32,14 +32,14 @@ dictionary = {v: i for (i, v) in enumerate(list(vocab))}
 
 net = tflearn.input_data(shape=[None, 1, len(vocab)])
 net = tflearn.layers.recurrent.simple_rnn(net, 512, return_seq=True)
-net = tflearn.dropout(net, 0.5)
+#net = tflearn.dropout(net, 0.5)
 net = tflearn.fully_connected(net, len(vocab), activation='softmax')
 net = tflearn.regression(net, optimizer='adam', loss='categorical_crossentropy',
-                       learning_rate=0.001)
-
+                       learning_rate=0.005)
+#clip_gradients=5.0,
 m = tflearn.SequenceGenerator(net, dictionary=dictionary,
                               seq_maxlen=maxlen,
-                              clip_gradients=5.0,)
+                              )
 def words_to_ints(words, dictionary=dictionary):
     return[dictionary[word] for word in words]
 
