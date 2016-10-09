@@ -508,7 +508,7 @@ def main():
     sys.exit(1)
   opts = Options()
   with tf.Graph().as_default(), tf.Session() as session:
-    with tf.device("/gpu:1"):
+    with tf.device("/cpu:0"):
       model = Word2Vec(opts, session)
     for _ in xrange(opts.epochs_to_train):
       model.train()  # Process one epoch
