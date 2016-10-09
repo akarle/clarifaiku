@@ -4,13 +4,55 @@
 
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+{% load static %}
 
 
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'porch/main.css' %}" />
+  <title>Clarifaiku</title>
 
-<form  method="post" class="form">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "star" %} Submit
-    </button>
-</form>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>Clarifaiku</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <hr />
+        <img class="displayed" src={{pic}} class="img-responsive" alt="Cinque Terre" />
+        <hr />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form  method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} Submit
+            </button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <hr />
+        <p class="blocktext">
+          {{line1}}
+          <br />
+          {{line2}}
+          <br />
+          {{line3}}
+        </p>
+
+        <hr />
+      </div>
+    </div>
+
+  </div>
+
+</body>

@@ -1,4 +1,4 @@
 from django import forms
 
-class NameForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=100)
+class UrlForm(forms.Form):
+    url = forms.CharField(label='Enter a url', max_length=100)
