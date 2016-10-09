@@ -9,6 +9,8 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'porch/main.css' %}" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:500" rel="stylesheet" type="text/css">
   <title>Clarifaiku</title>
 
 </head>
@@ -16,9 +18,10 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1>Clarifaiku</h1>
-      </div>
+        <h1>clarifaiku</h1>
+        <p class="blocktext">
+          An Artificially Intelligent Haiku Generator
+        </p>
     </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -29,14 +32,17 @@
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <form  method="post" class="form">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button type="submit" class="btn btn-primary">
-                    {% bootstrap_icon "star" %} Submit
-            </button>
+        <form method="post" class=" form-group">
+          {% csrf_token %}
+          {% bootstrap_form form layout='inline'%}
+          {% buttons submit='Go!' button_class="btn-primary" layout='inline' %}{% endbuttons %}
+
         </form>
+
+
+
       </div>
+
     </div>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -49,7 +55,6 @@
           {{line3}}
         </p>
 
-        <hr />
       </div>
     </div>
 
