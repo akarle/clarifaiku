@@ -47,7 +47,7 @@ from tensorflow.models.embedding import gen_word2vec as word2vec
 
 flags = tf.app.flags
 
-flags.DEFINE_string("save_path", None, "Directory to write the model and "
+flags.DEFINE_string("save_path", "models", "Directory to write the model and "
                     "training summaries.")
 flags.DEFINE_string("train_data", None, "Training text file. "
                     "E.g., unzipped file http://mattmahoney.net/dc/text8.zip.")
