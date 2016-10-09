@@ -4,7 +4,8 @@ import learn
 from models import *
 import os
 from django.conf import settings
-from . import RNN, skip_gram
+#from . import RNN, skip_gram
+from . import crawl
 # Create your views here.
 
 
@@ -18,6 +19,8 @@ def add_from_files(request):
 def run_model(request):
     #RNN.run_model()
     #from . import generator
-    skip_gram.run_skip_gram()
-    return HttpResponse('ok')
+    #skip_gram.run_skip_gram()
+    return HttpResponse(crawl.generate_similar_haiku(Haiku.objects.all()[0]))
+
+
 
