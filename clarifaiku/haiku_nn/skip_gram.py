@@ -13,13 +13,13 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Multi-threaded word2vec mini-batched skip-gram model.
+"""Multi-threaded word2vec mini-batched skip-gram models.
 
-Trains the model described in:
+Trains the models described in:
 (Mikolov, et. al.) Efficient Estimation of Word Representations in Vector Space
 ICLR 2013.
 http://arxiv.org/abs/1301.3781
-This model does traditional minibatching.
+This models does traditional minibatching.
 
 The key ops used are:
 * placeholder for feeding in tensors for each example.
@@ -47,12 +47,12 @@ from tensorflow.models.embedding import gen_word2vec as word2vec
 
 flags = tf.app.flags
 
-flags.DEFINE_string("save_path", "models", "Directory to write the model and "
+flags.DEFINE_string("save_path", "../models", "Directory to write the models and "
                     "training summaries.")
-flags.DEFINE_string("train_data", 'text8', "Training text file. "
+flags.DEFINE_string("train_data", '../text8', "Training text file. "
                     "E.g., unzipped file http://mattmahoney.net/dc/text8.zip.")
 flags.DEFINE_string(
-    "eval_data", 'questions-words.txt', "File consisting of analogies of four tokens."
+    "eval_data", '../questions-words.txt', "File consisting of analogies of four tokens."
     "embedding 2 - embedding 1 + embedding 3 should be close "
     "to embedding 4."
     "E.g. https://word2vec.googlecode.com/svn/trunk/questions-words.txt.")
@@ -82,22 +82,22 @@ flags.DEFINE_float("subsample", 1e-3,
 flags.DEFINE_boolean(
     "interactive", False,
     "If true, enters an IPython interactive session to play with the trained "
-    "model. E.g., try model.analogy(b'france', b'paris', b'russia') and "
-    "model.nearby([b'proton', b'elephant', b'maxwell'])")
+    "models. E.g., try models.analogy(b'france', b'paris', b'russia') and "
+    "models.nearby([b'proton', b'elephant', b'maxwell'])")
 flags.DEFINE_integer("statistics_interval", 5,
                      "Print statistics every n seconds.")
 flags.DEFINE_integer("summary_interval", 5,
                      "Save training summary to file every n seconds (rounded "
                      "up to statistics interval).")
 flags.DEFINE_integer("checkpoint_interval", 600,
-                     "Checkpoint the model (i.e. save the parameters) every n "
+                     "Checkpoint the models (i.e. save the parameters) every n "
                      "seconds (rounded up to statistics interval).")
 
 FLAGS = flags.FLAGS
 
 
 class Options(object):
-  """Options used by our word2vec model."""
+  """Options used by our word2vec models."""
 
   def __init__(self):
     # Model options.
@@ -155,7 +155,7 @@ class Options(object):
 
 
 class Word2Vec(object):
-  """Word2Vec model (Skipgram)."""
+  """Word2Vec models (Skipgram)."""
 
   def __init__(self, options, session):
     self._options = options
@@ -343,7 +343,7 @@ class Word2Vec(object):
     self._nearby_idx = nearby_idx
 
   def build_graph(self):
-    """Build the graph for the full model."""
+    """Build the graph for the full models."""
     opts = self._options
     # The training data. A text file.
     (words, counts, words_per_epoch, self._epoch, self._words, examples,
@@ -375,7 +375,7 @@ class Word2Vec(object):
     self.saver = tf.train.Saver()
 
   def save_vocab(self):
-    """Save the vocabulary to a file so the model can be reloaded."""
+    """Save the vocabulary to a file so the models can be reloaded."""
     opts = self._options
     with open(os.path.join(opts.save_path, "vocab.txt"), "w") as f:
       for i in xrange(opts.vocab_size):
@@ -391,7 +391,7 @@ class Word2Vec(object):
         break
 
   def train(self):
-    """Train the model."""
+    """Train the models."""
     opts = self._options
 
     initial_epoch, initial_words = self._session.run([self._epoch, self._words])
@@ -422,7 +422,7 @@ class Word2Vec(object):
         last_summary_time = now
       if now - last_checkpoint_time > opts.checkpoint_interval:
         self.saver.save(self._session,
-                        os.path.join(opts.save_path, "model.ckpt"),
+                        os.path.join(opts.save_path, "models.ckpt"),
                         global_step=step.astype(int))
         last_checkpoint_time = now
       if epoch != initial_epoch:
@@ -491,7 +491,7 @@ class Word2Vec(object):
         print("%-20s %6.4f" % (self._id2word[neighbor], distance))
 
 
-def _start_shell(local_ns=None):
+def _start_shell(local_ns=None):`\
   # An interactive shell is useful for debugging/development.
   import IPython
   user_ns = {}
@@ -502,7 +502,7 @@ def _start_shell(local_ns=None):
 
 
 def main():
-  """Train a word2vec model."""
+  """Train a word2vec models."""
   if not FLAGS.train_data or not FLAGS.eval_data or not FLAGS.save_path:
     print("--train_data --eval_data and --save_path must be specified.")
     sys.exit(1)
@@ -515,12 +515,12 @@ def main():
       model.eval()  # Eval analogies.
     # Perform a final save.
     model.saver.save(session,
-                     os.path.join(opts.save_path, "model.ckpt"),
+                     os.path.join(opts.save_path, "models.ckpt"),
                      global_step=model.global_step)
     if FLAGS.interactive:
       # E.g.,
-      # [0]: model.analogy(b'france', b'paris', b'russia')
-      # [1]: model.nearby([b'proton', b'elephant', b'maxwell'])
+      # [0]: models.analogy(b'france', b'paris', b'russia')
+      # [1]: models.nearby([b'proton', b'elephant', b'maxwell'])
       _start_shell(locals())
 
 

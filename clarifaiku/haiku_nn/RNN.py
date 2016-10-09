@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Example / benchmark for building a PTB LSTM model.
-Trains the model described in:
+"""Example / benchmark for building a PTB LSTM models.
+Trains the models described in:
 (Zaremba, et. al.) Recurrent Neural Network Regularization
 http://arxiv.org/abs/1409.2329
-There are 3 supported model configurations:
+There are 3 supported models configurations:
 ===========================================
 | config | epochs | train | valid  | test
 ===========================================
@@ -25,7 +25,7 @@ There are 3 supported model configurations:
 | medium | 39     | 48.45 |  86.16 |  82.07
 | large  | 55     | 37.87 |  82.62 |  78.29
 The exact results may vary depending on the random initialization.
-The hyperparameters used in the model:
+The hyperparameters used in the models:
 - init_scale - the initial scale of the weights
 - learning_rate - the initial value of the learning rate
 - max_grad_norm - the maximum permissible norm of the gradient
@@ -61,8 +61,8 @@ flags = tf.flags
 logging = tf.logging
 
 flags.DEFINE_string(
-    "model", "haiku",
-    "A type of model. Possible options are: small, medium, large.")
+    "models", "haiku",
+    "A type of models. Possible options are: small, medium, large.")
 flags.DEFINE_string("data_path", None, "data_path")
 flags.DEFINE_bool("use_fp16", False,
                   "Train using 16-bit floats instead of 32bit floats")
@@ -75,7 +75,7 @@ def data_type():
 
 
 class HaikuModel(object):
-    """The PTB model."""
+    """The PTB models."""
 
     def __init__(self, is_training, config):
         self.batch_size = batch_size = config.batch_size
@@ -87,7 +87,7 @@ class HaikuModel(object):
         self._targets = tf.placeholder(tf.int32, [batch_size, num_steps])
 
         # Slightly better results can be obtained with forget gate biases
-        # initialized to 1 but the hyperparameters of the model would need to be
+        # initialized to 1 but the hyperparameters of the models would need to be
         # different than reported in the paper.
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(size, forget_bias=0.0)
         if is_training and config.keep_prob < 1:
@@ -261,7 +261,7 @@ class TestConfig(object):
 
 
 def run_epoch(session, m, data, eval_op, verbose=False):
-    """Runs the model on the given data."""
+    """Runs the models on the given data."""
     epoch_size = ((len(data) // m.batch_size) - 1) // m.num_steps
     start_time = time.time()
     costs = 0.0
@@ -296,7 +296,7 @@ def get_config():
     elif FLAGS.model == "haiku":
         return HaikuConfig()
     else:
-        raise ValueError("Invalid model: %s", FLAGS.model)
+        raise ValueError("Invalid models: %s", FLAGS.model)
 
 
 #def main(_):
@@ -316,9 +316,9 @@ def main():
     with tf.Graph().as_default(), tf.Session() as session:
         initializer = tf.random_uniform_initializer(-config.init_scale,
                                                     config.init_scale)
-        with tf.variable_scope("model", reuse=None, initializer=initializer):
+        with tf.variable_scope("models", reuse=None, initializer=initializer):
             m = HaikuModel(is_training=True, config=config)
-        with tf.variable_scope("model", reuse=True, initializer=initializer):
+        with tf.variable_scope("models", reuse=True, initializer=initializer):
             mvalid = HaikuModel(is_training=False, config=config)
             mtest = HaikuModel(is_training=False, config=eval_config)
 
