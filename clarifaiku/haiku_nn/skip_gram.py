@@ -49,10 +49,10 @@ flags = tf.app.flags
 
 flags.DEFINE_string("save_path", "models", "Directory to write the model and "
                     "training summaries.")
-flags.DEFINE_string("train_data", None, "Training text file. "
+flags.DEFINE_string("train_data", 'text8', "Training text file. "
                     "E.g., unzipped file http://mattmahoney.net/dc/text8.zip.")
 flags.DEFINE_string(
-    "eval_data", None, "File consisting of analogies of four tokens."
+    "eval_data", 'questions-words.txt', "File consisting of analogies of four tokens."
     "embedding 2 - embedding 1 + embedding 3 should be close "
     "to embedding 4."
     "E.g. https://word2vec.googlecode.com/svn/trunk/questions-words.txt.")
@@ -524,11 +524,11 @@ def main():
       _start_shell(locals())
 
 
-if __name__ == "__main__":
-  tf.app.run()
 
 def run_skip_gram():
     f = flags.FLAGS
     f._parse_flags()
     main()
 
+if __name__ == "__main__":
+    run_skip_gram()

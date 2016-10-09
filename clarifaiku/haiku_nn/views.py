@@ -4,9 +4,8 @@ import learn
 from models import *
 import os
 from django.conf import settings
-from . import RNN
+from . import RNN, skip_gram
 # Create your views here.
-
 
 
 def index(request):
@@ -18,6 +17,7 @@ def add_from_files(request):
 
 def run_model(request):
     #RNN.run_model()
-    from . import generator
+    #from . import generator
+    skip_gram.run_skip_gram()
     return HttpResponse('ok')
 
