@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os
-from six.moves import urllib
+#from six.moves import urllib
 
 import tflearn
 from tflearn.data_utils import *
@@ -45,6 +45,7 @@ def words_to_ints(words, dictionary=dictionary):
 
 def enumerate_haiku(haiku_arr, dictionary=dictionary):
     a1, a2, a3 = (words_to_ints(haiku_arr[0]), words_to_ints(haiku_arr[1]), words_to_ints(haiku_arr[2]))
+    return a1 + a2 + a3
 for haiku in learn.get_words()[:5]:
     m.fit(haiku[1], enumerate_haiku(haiku[0]), validation_set=0.1, batch_size=128,
           n_epoch=1, run_id='haiku')
@@ -53,4 +54,4 @@ for haiku in learn.get_words()[:5]:
     # print(m.generate(600, temperature=1.0, seq_seed=seed))
     print(m.generate(600, temperature=1.0))
     # print("-- Test with temperature of 0.5 --")
-    # print(m.generate(600, temperature=0.5, seq_seed=seed))
+    # print(m.generate(600, temperature=0.5, seq_seed=seed)
